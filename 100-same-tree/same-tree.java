@@ -15,15 +15,15 @@
  */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        // Base case: if both trees are null, they are identical
-        if (p == null && q == null) {
+        if(p==null && q==null){
             return true;
         }
-        // If only one tree is null or the values are different, they are not identical
-        if (p == null || q == null || p.val != q.val) {
+        if(p==null || q==null){
             return false;
         }
-        // Recursively check if the left and right subtrees are identical
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        if(p.val!=q.val){
+            return false;
+        }
+        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
     }
 }
