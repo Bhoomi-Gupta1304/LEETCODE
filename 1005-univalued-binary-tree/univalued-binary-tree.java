@@ -22,9 +22,6 @@ class Solution {
             return true;
         }
         int x = root.val;
-        if(root.left == null && root.right==null){
-            return true;
-        }
         if(root.left !=null && root.left.val !=x){
             return false;
         }
