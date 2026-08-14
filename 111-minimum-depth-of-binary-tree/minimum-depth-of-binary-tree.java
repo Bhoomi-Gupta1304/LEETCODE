@@ -29,10 +29,6 @@ class Solution {
             return minDepth(root.left) + 1;
         }
 
-        // Both children exist, so take the smaller depth
-        int x = minDepth(root.left);
-        int y = minDepth(root.right);
-
-        return Math.min(x, y) + 1;
+        return Math.min( minDepth(root.left),minDepth(root.right)) + 1;
     }
 }
