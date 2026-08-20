@@ -14,23 +14,28 @@
  * }
  */
 class Solution {
+
     public boolean isBalanced(TreeNode root) {
-        if(root==null){
-            return true;
-        }
-        
-        if (Math.abs(height(root.left) - height(root.right)) > 1){
-            return false;
-        }
-        if (!isBalanced(root.left) || !isBalanced(root.right)) {
-            return false;
-        }
-        return true;
+        BalPair bp = Balanced(root);
+        return bp.isBal;
     }
-    public static int height(TreeNode root){
-        if(root == null){
-            return 0;
+
+    public BalPair Balanced(TreeNode root) {
+        if (root == null) {
+            return new BalPair();
         }
-        return Math.max(height(root.left),height(root.right)) + 1;
+        BalPair lp = Balanced(root.left);
+        BalPair rp = Balanced(root.right);
+        BalPair sp = new BalPair();
+        sp.ht = Math.max(lp.ht, rp.ht) + 1;
+        sp.isBal = lp.isBal &&
+                   rp.isBal &&
+                   Math.abs(lp.ht - rp.ht) <= 1;
+        return sp;
     }
+}
+
+class BalPair {
+    boolean isBal = true;
+    int ht = -1;
 }
