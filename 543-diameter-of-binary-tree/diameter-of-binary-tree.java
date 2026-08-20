@@ -18,14 +18,14 @@ class Solution {
         if(root==null){
             return 0;
         }
-        int z = height(root.left)+height(root.right);
-        int x = diameterOfBinaryTree(root.left);
-        int y = diameterOfBinaryTree(root.right);
-        return Math.max(z,Math.max(x,y));
+        int self = height(root.left)+height(root.right) +2;
+        int left = diameterOfBinaryTree(root.left);
+        int right = diameterOfBinaryTree(root.right);
+        return Math.max(self,Math.max(left,right));
     }
     public static int height(TreeNode root){
         if(root == null){
-            return 0;
+            return -1;
         }
         return Math.max(height(root.left),height(root.right)) + 1;
     }
