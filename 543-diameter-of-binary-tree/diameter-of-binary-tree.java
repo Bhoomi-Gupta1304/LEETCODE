@@ -15,18 +15,24 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-        if(root==null){
-            return 0;
-        }
-        int self = height(root.left)+height(root.right) +2;
-        int left = diameterOfBinaryTree(root.left);
-        int right = diameterOfBinaryTree(root.right);
-        return Math.max(self,Math.max(left,right));
+        DiaPair dp = diameter(root);
+        return dp.dia;
     }
-    public static int height(TreeNode root){
-        if(root == null){
-            return -1;
+    public DiaPair diameter(TreeNode root){
+        // Base case
+        if (root == null) {
+            return new DiaPair();
         }
-        return Math.max(height(root.left),height(root.right)) + 1;
+        DiaPair ldp = diameter(root.left);
+        DiaPair rdp = diameter(root.right);
+        int sd = ldp.ht + rdp.ht + 2; //
+        DiaPair sdp = new DiaPair();
+        sdp.ht = Math.max(ldp.ht, rdp.ht) +1 ; // pure tree ki height
+        sdp.dia = Math.max(sd,Math.max(ldp.dia,rdp.dia)); //pure tree ka diameter or height ka maximum
+        return sdp;
     }
+}
+class DiaPair {
+    int dia = 0;
+    int ht=-1;
 }
