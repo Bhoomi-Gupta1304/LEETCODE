@@ -15,30 +15,28 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        BSTpair ans = check(root);
+        BstPair ans = ValidBST(root);
         return ans.isbst;
     }
-    public BSTpair check(TreeNode root) {
-        if (root == null) {
-            return new BSTpair();
+    public BstPair ValidBST(TreeNode root){
+        if(root == null){
+            return new BstPair();
         }
-        BSTpair left = check(root.left);
-        BSTpair right = check(root.right);
-        BSTpair self = new BSTpair();
-        if (!left.isbst || !right.isbst) {
-            self.isbst = false;
-            return self;
+        BstPair lbp = ValidBST(root.left);
+        BstPair rbp = ValidBST(root.right);
+        BstPair sbp = new BstPair();
+        sbp.min = Math.min(lbp.min,Math.min(rbp.min,root.val));
+        sbp.max = Math.max(lbp.max,Math.max(rbp.max,root.val));
+        if(lbp.isbst && rbp.isbst && lbp.max<root.val && rbp.min>root.val){
+            sbp.isbst = true;
         }
-        if (root.val <= left.max || root.val >= right.min) {
-            self.isbst = false;
-            return self;
+        else{
+            sbp.isbst = false;
         }
-        self.min = Math.min(root.val, Math.min(left.min, right.min));
-        self.max = Math.max(root.val, Math.max(left.max, right.max));
-        return self;
+        return sbp;
     }
 }
-class BSTpair {
+class BstPair {
     boolean isbst = true;
     long min = Long.MAX_VALUE;
     long max = Long.MIN_VALUE;
