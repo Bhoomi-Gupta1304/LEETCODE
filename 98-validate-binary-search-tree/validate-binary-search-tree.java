@@ -15,8 +15,8 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        BstPair ans = ValidBST(root);
-        return ans.isbst;
+        return ValidBST(root).isbst;
+        
     }
     public BstPair ValidBST(TreeNode root){
         if(root == null){
