@@ -14,21 +14,30 @@
  * }
  */
 class Solution {
-    int count = 0;
     public int distributeCoins(TreeNode root) {
         // ya too uss move ko extra coin chahie hoga ya uske pass extra coin hoga ya fr usko jrurt hogi
         // we'll see left side how many coins are extra
-        distribute(root);
-        return count;
+        Pair ans = distribute(root);
+        return ans.count;
     }
-    public int distribute(TreeNode root){
-        if(root == null){
-            return 0;
+    public Pair distribute(TreeNode root) {
+        if(root == null) {
+            return new Pair();
         }
-        int lp = distribute(root.left);
-        int rp = distribute(root.right);
-        count = count+ Math.abs(lp) + Math.abs(rp);
-        return lp+rp + root.val - 1;
+        Pair lp = distribute(root.left);
+        Pair rp = distribute(root.right);
+        Pair sp = new Pair();
+        // Total moves in left + right subtree
+        // + moves needed across left and right edges
+        sp.count = lp.count + rp.count
+                + Math.abs(lp.need)
+                + Math.abs(rp.need);
+        // Extra (+) or required (-) coins in this subtree
+        sp.need = lp.need + rp.need + root.val - 1;
+        return sp;
     }
-    
+    class Pair {
+        int count = 0;
+        int need = 0;
+    }
 }
