@@ -19,6 +19,9 @@ class Solution {
             return true;
         }
         boolean ans = is(head.next) && head.val==curr.val;
+        if(ans==false){
+            return false;
+        }
         curr = curr.next;
         return ans;
         }
