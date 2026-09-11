@@ -4,7 +4,7 @@ class Solution {
         if(n*9 < s || s>45 ) return -1;
         if(n==1 && s>9) return -1;
         if(s<10 && n>1) return s * (int)(Math.pow(10,n-1));
-        if(9*n-s < 10) return nn(n) - (9*n - s);
+        // if(9*n-s < 10) return nn(n) - (9*n - s);
         return num(n,s);
     }
     public int num(int n,int s){
