@@ -3,19 +3,18 @@ class Solution {
         if(s.length()!=t.length()){
             return false;
         }
-        int [] f = new int[26];
-        for(int i=0;i < s.length();i++){
-            f[(s.charAt(i))-'a']++;
+        Map<Character,Integer> f = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            f.put(ch, f.getOrDefault(ch, 0) + 1);
         }
         for (int i = 0; i < t.length(); i++) {
-            f[t.charAt(i) - 'a']--;
-        }
-        for(int i=0;i<26;i++){
-            if(f[i]<0 || f[i]>0){
+            char ch = t.charAt(i);
+            if (!f.containsKey(ch) || f.get(ch) == 0) {
                 return false;
             }
+            f.put(ch, f.get(ch) - 1);
         }
         return true;
     }
-    
 }
