@@ -1,27 +1,22 @@
 class Solution {
     public int change(int amount, int[] coins) {
-        int[][] dp = new int[coins.length][amount + 1];
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
-        return Coin(coins, amount, 0, dp);
+        int[][] dp = new int[coins.length+1][amount + 1];
+        return Coin(coins, amount,dp);
     }
-    public int Coin(int[] coins, int amount, int i, int[][] dp) {
-        if (amount == 0) {
-            return 1;
+    public int Coin(int[] coins, int amount, int[][] dp) {
+        for(int i=0;i<dp.length;i++){
+            dp[i][0] = 1;
         }
-        if (i == coins.length) {
-            return 0;
+        for(int i=1;i<dp.length;i++){
+            for(int am=1;am<dp[0].length;am++){
+                int inc =0, exc = 0;
+                if(coins[i-1]<=am){
+                    inc = dp[i][am-coins[i-1]];
+                }
+                exc = dp[i-1][am];
+                dp[i][am] = inc+exc;
+            }
         }
-        if (dp[i][amount] != -1) {
-            return dp[i][amount];
-        }
-        int inc = 0;
-        int exc = 0;
-        if (coins[i] <= amount) {
-            inc = Coin(coins, amount - coins[i], i, dp);
-        }
-        exc = Coin(coins, amount, i + 1, dp);
-        return dp[i][amount] = inc + exc;
+        return dp[dp.length-1][dp[0].length-1];
     }
 }
