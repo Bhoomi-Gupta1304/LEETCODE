@@ -1,9 +1,6 @@
 class Solution {
     public int calculateMinimumHP(int[][] dungeon) {
         int [][] dp =new int[dungeon.length][dungeon[0].length];
-        for(int [] a : dp){
-            Arrays.fill(a,-1);
-        }
         return min(dungeon,0,0,dp);
     }
     public static int min(int [][] arr,int cr,int cc,int [][] dp){
@@ -13,7 +10,7 @@ class Solution {
         if(cr==arr.length-1 && cc==arr[0].length-1){
             return Math.max(1, 1-arr[cr][cc]);
         }
-        if(dp[cr][cc] != -1){
+        if(dp[cr][cc] != 0){
             return dp[cr][cc];
         }
         int ld = min(arr,cr,cc+1,dp);
